@@ -27,8 +27,8 @@ async function queryUserInfoAPI(token) {
     resolve({id: 1, name: 'sunkj'});
   });
 }
- 
-async function login(scope) { 
+
+async function _login(scope) {
   const token = await loginAPI(scope);
   const user = await queryUserInfoAPI(token);
   user.name = scope.username;
@@ -40,13 +40,25 @@ async function login(scope) {
       user: user
     },
   };
+  return Promise.resolve(action);
+}
 
-  return await Promise.resolve(action);
+/**
+ * 返回一个promise函数，把dispatch传进来，可以处理一些业务逻辑
+ * @param {*} scope 
+ */
+function login(scope) { 
+  return (dispatch) => {   
+    const promise = _login(scope);
 
-  // return (dispatch) => {    
-  //   dispatch(action);
-  //   return Promise.resolve(user);
-  // };
+    promise.then(
+      (result) => {
+        dispatch(result);
+      }
+    );
+
+    return promise;
+  };
 }
 
 /**

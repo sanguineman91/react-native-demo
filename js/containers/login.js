@@ -33,16 +33,24 @@ class Login extends Component {
   }
 
   login() {
-    const {dispatch} = this.props;
+    const { dispatch } = this.props;
     const { navigate } = this.props.navigation;
     try{
-      const promise = login({
+      // const promise = dispatch(login({
+      //   username: this.state.username, 
+      //   password: this.state.password
+      // }));
+
+      // or 
+
+      const promise = this.props.login2({
         username: this.state.username, 
         password: this.state.password
       });
+
       promise.then(function(data){
-        console.warn(data);
-        dispatch(data);
+        console.warn('done');
+        //dispatch(data);
         setTimeout(function(){ navigate('Main');  }, 3000);
         
       });
@@ -51,6 +59,7 @@ class Login extends Component {
       //console.warn(e);
       this.setState({loginStatus: 'fail'});
     }
+    
   }
 
   render() {
@@ -101,12 +110,27 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * 这里是知道map到props的state
+ * @param {*} state 
+ */
 const mapStateToProps = state => ({
   
 });
 
+/**
+ * 这里指定要map到props的事件
+ * 一般情况下该conponent需要发送的action事件都应该定义在这里
+ * 如果偷懒不定义这个方法，那么在component中，直接引用dispatch去发送action
+ * @param {*} dispatch 
+ */
 const mapDispatchToProps = dispatch => ({
-  dispatch: dispatch
+  dispatch: dispatch,
+  login2: (scope) => dispatch(login(scope))
 });
 
+/**
+ * 如果没有传入mapDispatchToProps，默认会把dispatch map到props
+ * 如果传入的话，必须显示的指定，否则会undefined
+ */
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
