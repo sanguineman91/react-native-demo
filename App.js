@@ -1,23 +1,33 @@
 /**
- * Sample React Native App
+ * React Native App
  * https://github.com/facebook/react-native
  * @flow
  */
 
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-
+import { Provider } from 'react-redux';
+import configureStore from './js/store/configureStore';
 import Route from './js/navigators/index';
 
 export default class App extends Component<{}> {
+  state: {
+    isLoading: false,
+    store: null,
+  }
+
+  constructor() {
+    super();
+    this.state = {
+      isLoading: true,
+      store: configureStore,
+    };
+  }
+
   render() {
     return (
-      <Route />
+      <Provider store={this.state.store}>
+        <Route />
+      </Provider>
     );
   }
 }

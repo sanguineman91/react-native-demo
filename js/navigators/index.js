@@ -5,13 +5,12 @@
 
 import React from 'react';
 import { addNavigationHelpers, StackNavigator, TabNavigator } from 'react-navigation';
-import  TabBarItem from './tabBarItem';
-
+import TabBarItem from './tabBarItem';
 import Main from '../containers/main';
 import Wallet from '../containers/wallet';
 import Profile from '../containers/profile';
-
 import Other from '../containers/other';
+import Login from '../containers/login';
 
 //底部的tabBar导航
 const TabBar = TabNavigator({
@@ -71,6 +70,9 @@ const AppNavigator = StackNavigator({
   },
   Other:{
     screen: Other
+  },
+  Login:{
+    screen: Login
   }
 });
 
