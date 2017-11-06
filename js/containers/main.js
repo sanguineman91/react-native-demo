@@ -24,7 +24,7 @@ class Main extends Component<{}> {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome Home! User has login? {this.props.isLoggedIn ? 'Yes' : 'No'}  UserName: {this.props.name}
+          Welcome Home! User has login? {this.props.isLoggedIn ? 'Yes' : 'No'}  UserName: {this.props.data ? this.props.data.user.name : 'not login'}
         </Text>
         <Button 
           title='go to profile'
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   isLoggedIn: state.login.isLoggedIn,
-  name: state.login.name,
+  data: state.login.data,
 });
 
 

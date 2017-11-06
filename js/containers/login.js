@@ -34,34 +34,29 @@ class Login extends Component {
   }
 
   login() {
+    const that = this;
+
     const { dispatch } = this.props;
     const { navigate } = this.props.navigation;
-    try{
-      // const promise = dispatch(login({
-      //   username: this.state.username, 
-      //   password: this.state.password
-      // }));
 
-      // or 
+    // const promise = dispatch(login({
+    //   username: this.state.username, 
+    //   password: this.state.password
+    // }));
 
-      const promise = this.props.login2({
-        username: this.state.username, 
-        password: this.state.password
-      });
+    // or 
 
-      console.log('yes');
+    const promise = this.props.login2({
+      username: this.state.username, 
+      password: this.state.password
+    });
 
-      promise.then(function(data){
-        console.warn('done');
-        //dispatch(data);
-        setTimeout(function(){ navigate('Main');  }, 3000);
-        
-      });
-      // go main page
-    }catch(e){
-      //console.warn(e);
-      this.setState({loginStatus: 'fail'});
-    }
+    promise.then(function(data){ 
+      navigate('Main');
+    }, function(err){
+      //todo: handle error 
+      that.setState({loginStatus: 'fail'});
+    });
     
   }
 
@@ -69,7 +64,7 @@ class Login extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome Login! {this.state.username}  {this.state.password}
+          Welcome Login! {this.state.username}  {this.state.password}, status: {this.props.status}
         </Text>
         <TextInput style={styles.formControl}
           onChangeText={(text) => this.setState({ username: text })}
@@ -86,7 +81,7 @@ class Login extends Component {
         {
           (this.state.loginStatus === 'fail') && 
           <Text style={{color: '#f00'}}>
-              login fail.
+              oo login fail.
           </Text> 
         }
       </View>
@@ -118,7 +113,7 @@ const styles = StyleSheet.create({
  * @param {*} state 
  */
 const mapStateToProps = state => ({
-  
+  status: state.login.status,
 });
 
 /**

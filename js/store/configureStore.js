@@ -4,7 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import array from './array';
-import analytics from './array';
+import analytics from './analytics';
 import reducers from '../reducers';
 
 var isDebuggingInChrome = __DEV__ && !!window.navigator.userAgent;
@@ -16,6 +16,6 @@ var logger = createLogger({
 });
 
 //var configureStore = createStore(reducers);
-var configureStore = applyMiddleware(thunk, array, analytics, analytics, logger)(createStore)(reducers);
+var configureStore = applyMiddleware(thunk, array, analytics, logger)(createStore)(reducers);
 
-module.exports = configureStore;
+export default configureStore;

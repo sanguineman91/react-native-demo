@@ -2,7 +2,9 @@
 
 import track from './track';
 
-module.exports = store => next => action => {
+const analytics = store => next => action => {
   track(action);
   return next(action);
 };
+
+export default analytics
