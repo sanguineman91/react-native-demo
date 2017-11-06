@@ -19,6 +19,7 @@ import { login } from '../actions';
 class Login extends Component {
   static navigationOptions = {
     title: '登录',
+    headerRight: (<Button title='settings' onPress={()=>{}}/>),
   }
 
   constructor() {
@@ -47,6 +48,8 @@ class Login extends Component {
         username: this.state.username, 
         password: this.state.password
       });
+
+      console.log('yes');
 
       promise.then(function(data){
         console.warn('done');
