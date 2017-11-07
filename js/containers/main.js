@@ -12,9 +12,9 @@ import {
   View,
   Button
 } from 'react-native';
+import { connect } from 'react-redux';
 
-
-export default class Main extends Component<{}> {
+class Main extends Component<{}> {
   static navigationOptions = {
     title: '赫美支付',
   }
@@ -24,12 +24,12 @@ export default class Main extends Component<{}> {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome Home!
+          Welcome Home! User has login? {this.props.isLoggedIn ? 'Yes' : 'No'}  UserName: {this.props.data ? this.props.data.user.name : 'not login'}
         </Text>
         <Button 
           title='go to profile'
           onPress={()=>{
-              navigate('Profile'); 
+              navigate('Login'); 
           }} />
       </View>
     );
@@ -54,3 +54,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+
+const mapStateToProps = state => ({
+  isLoggedIn: state.login.isLoggedIn,
+  data: state.login.data,
+});
+
+
+export default connect(mapStateToProps)(Main);
